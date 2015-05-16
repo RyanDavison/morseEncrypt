@@ -57,7 +57,7 @@
 			":": "---...",
 			"/": "-..-.",
 			"-": "-....-",
-			"&apos;": ".----.",
+			"&#39;": ".----.",
 			"()": "-.--.-",
 			"_": "..--.-",
 			" ": "/"
@@ -86,12 +86,11 @@
             })
         }   
 	}
-	console.log(d.getElementsByTagName("textarea").length);
 	if (d.getElementsByTagName("textarea").length < 1) {// if there are no textareas...
 		x = d.createElement("div");
         x.setAttribute("id", "morsediv");
 		x.setAttribute("style", "height:50px;width:200px;position:fixed;top:0;right:0;z-index:9999;background:white;");
-        x.innerHTML = "<textarea id=&apos;box&apos;></textarea><span id=&apos;closer&apos; title=&apos;Close Morse Encrypt&apos; style=&apos;cursor:pointer;position:absolute;left:-0.75em;top:0;background:lightgray;&apos;>X</span><button type=&apos;button&apos; id=&apos;morseEnc&apos;>Encrypt</button><button style=&apos;margin-left:1em;&apos; type=&apos;button&apos; id=&apos;morseDec&apos;>Decrypt</button>";
+        x.innerHTML = "<textarea id=&#39;box&#39;></textarea><span id=&#39;closer&#39; title=&#39;Close Morse Encrypt&#39; style=&#39;cursor:pointer;position:absolute;left:-0.75em;top:0;background:lightgray;&#39;>X</span><button type=&#39;button&#39; id=&#39;morseEnc&#39;>Encrypt</button><button style=&#39;margin-left:1em;&#39; type=&#39;button&#39; id=&#39;morseDec&#39;>Decrypt</button>";
 		d.body.appendChild(x);
         d.getElementById("morseEnc").onclick = morse;
         d.getElementById("morseDec").onclick = decrypt;
