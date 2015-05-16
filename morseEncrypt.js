@@ -9,13 +9,10 @@
  * Let me know what else it works/doesn't work with.
  */
 (function () {
-	'use strict';
-	var d = document, // document shortener
-		x;
-	function morse() {
-		// replaces all textarea element contents with 
-		// the equivalent in morse code.
-		var translator = { // key/value pairs for translation to morse code
+	"use strict";
+	var d = document,
+	x,
+    translator = {// key/value pairs for translation to morse code
 			A: ".-",
 			B: "-...",
 			C: "-.-.",
@@ -55,30 +52,51 @@
 			",": "--..--",
 			".": ".-.-.-",
 			"?": "..--..",
+            "!": "---.",
 			";": "-.-.-",
 			":": "---...",
 			"/": "-..-.",
 			"-": "-....-",
-			"'": ".----.",
+			"&apos;": ".----.",
 			"()": "-.--.-",
 			"_": "..--.-",
-			" ": " /"
+			" ": "/"
 		};
-			
+                    
+	function morse() {	
+        // replaces all textarea element contents with 
+		// the equivalent in morse code.
 		[].forEach.call(d.getElementsByTagName("textarea"), function (el) {
 			var letters = el.value.toUpperCase().split("");
 			el.value = letters.map(function (i) { return translator[i];}).join(" ");
-		});
-		
+		});	
 	}
-	
-	if (d.getElementsByTagName('textarea').length < 1) { // if there are no textareas...
+                    
+    function decrypt() {
+        var box = d.getElementById("box");
+        if(box){
+            var content = box.value.split(" ");
+            box.value = "";
+            content.forEach(function(el){
+                for(var key in translator){
+                    if(translator[key] === el){
+                    box.value = box.value + key;
+                    }
+                }
+            })
+        }   
+	}
+	console.log(d.getElementsByTagName("textarea").length);
+	if (d.getElementsByTagName("textarea").length < 1) {// if there are no textareas...
 		x = d.createElement("div");
-		x.setAttribute("style", "height:50px;width:200px;position:fixed;top:0;right:0;z-index:9999;");
-		x.innerHTML = "<textarea></textarea>Morse:&nbsp;<button type='button' id='morseEnc'>Encrypt</button>";
+        x.setAttribute("id", "morsediv");
+		x.setAttribute("style", "height:50px;width:200px;position:fixed;top:0;right:0;z-index:9999;background:white;");
+        x.innerHTML = "<textarea id=&apos;box&apos;></textarea><span id=&apos;closer&apos; title=&apos;Close Morse Encrypt&apos; style=&apos;cursor:pointer;position:absolute;left:-0.75em;top:0;background:lightgray;&apos;>X</span><button type=&apos;button&apos; id=&apos;morseEnc&apos;>Encrypt</button><button style=&apos;margin-left:1em;&apos; type=&apos;button&apos; id=&apos;morseDec&apos;>Decrypt</button>";
 		d.body.appendChild(x);
-		d.getElementById("morseEnc").onclick = morse;
+        d.getElementById("morseEnc").onclick = morse;
+        d.getElementById("morseDec").onclick = decrypt;
+        d.getElementById("closer").onclick = function(){this.parentNode.parentNode.removeChild(d.getElementById("morsediv"))};
 	} else {
-		morse(); // replaces all textarea contents with morse code.
+		morse();// replaces all textarea contents with morse code.
 	}
 })();
